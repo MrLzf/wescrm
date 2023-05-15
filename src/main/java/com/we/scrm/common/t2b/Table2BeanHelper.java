@@ -173,7 +173,15 @@ public class Table2BeanHelper {
 		try {
 			String tmpPackageName = packageName  + ".dao;";
 			String tmpClassName = className + "Dao";
-			classFile.createNewFile();
+			//classFile.createNewFile();
+			String classDir = classFile.getCanonicalPath().substring(0,classFile.getCanonicalPath().lastIndexOf("\\"));
+			File dir = new File(classDir); // 创建目录对象
+			if (!dir.exists()) { // 判断目录是否存在
+				dir.mkdirs(); // 如果目录不存在，则递归创建该目录
+			}
+
+			classFile = new File(classFile.getCanonicalPath());
+			classFile.createNewFile(); // 创建新文件
 
 			StringBuilder sb = new StringBuilder();
 			sb.append("package " + tmpPackageName + "\n\n");
@@ -216,7 +224,16 @@ public class Table2BeanHelper {
 
 	public static void createDomainClass(File classFile, String packageName, String className, String tableName, List<TableBean> cols) {
 		try {
-			classFile.createNewFile();
+			//classFile.createNewFile();
+			// 指定保存 class 文件的目录路径。例如：D:\test\
+			String classDir = classFile.getCanonicalPath().substring(0,classFile.getCanonicalPath().lastIndexOf("\\"));
+			File dir = new File(classDir); // 创建目录对象
+			if (!dir.exists()) { // 判断目录是否存在
+				dir.mkdirs(); // 如果目录不存在，则递归创建该目录
+			}
+
+			classFile = new File(classFile.getCanonicalPath());
+			classFile.createNewFile(); // 创建新文件
 			StringBuilder sb = new StringBuilder();
 			sb.append("package " + packageName + ".domain;\n\n");
 			sb.append("import java.util.Date;\n");
@@ -293,7 +310,17 @@ public class Table2BeanHelper {
 			String tmpPackageName = packageName  + ".service;";
 			String tmpClassName = className + "Service";
 
-			classFile.createNewFile();
+			//classFile.createNewFile();
+			// 指定保存 class 文件的目录路径。例如：D:\test\
+			String classDir = classFile.getCanonicalPath().substring(0,classFile.getCanonicalPath().lastIndexOf("\\"));
+			File dir = new File(classDir); // 创建目录对象
+			if (!dir.exists()) { // 判断目录是否存在
+				dir.mkdirs(); // 如果目录不存在，则递归创建该目录
+			}
+
+			classFile = new File(classFile.getCanonicalPath());
+			classFile.createNewFile(); // 创建新文件
+
 
 			StringBuilder sb = new StringBuilder();
 			sb.append("package " + tmpPackageName + "\n\n");
@@ -409,6 +436,19 @@ public class Table2BeanHelper {
 
 			sb.append("\n\n</mapper>\n");
 
+			//OutputStream os = new FileOutputStream(daoXmlFile);
+			// 指定保存文件的目录路径和文件名称
+			String dirPath = daoXmlFile.getPath().substring(0,daoXmlFile.getPath().lastIndexOf("\\"));
+			String fileName = daoXmlFile.getName();
+
+			// 创建目录对象
+			File dir = new File(dirPath);
+			if (!dir.exists()) {
+				dir.mkdirs(); // 如果目录不存在，则递归创建该目录
+			}
+			// 创建文件对象
+			daoXmlFile = new File(dir, fileName);
+			// 创建输出流对象
 			OutputStream os = new FileOutputStream(daoXmlFile);
 			PrintStream ps = new PrintStream(os);
 			ps.print(sb);

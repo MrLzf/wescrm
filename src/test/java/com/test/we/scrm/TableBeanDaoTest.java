@@ -23,13 +23,13 @@ public class TableBeanDaoTest {
     public void createTableBeans(){
 
         //换成开发者的目录
-        String mainDir = "D:\\workspaceVideo\\wescrm\\src\\main";
+        String mainDir = "D:\\lzf\\wescrm\\src\\main";
         String packageName = "com.we.scrm";
         String database = "wescrm";//换成开发者的数据库名称
 
         TableBean vo = new TableBean();
         vo.setTableSchema(database);
-
+        vo.setTableName("auth_user");//指定表
         List<String> tables = tableBeanDao.listTables(vo);
         for (String table : tables) {
             System.out.println("table = " + table);

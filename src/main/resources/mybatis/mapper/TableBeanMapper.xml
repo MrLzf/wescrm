@@ -4,8 +4,15 @@
 	
 	<select id="listTables" parameterType="com.we.scrm.common.t2b.TableBean"  resultType="java.lang.String">
 		SELECT Table_Name 
-		From information_schema.TABLES 
-		WHERE TABLE_SCHEMA = '${tableSchema}';
+		From information_schema.TABLES
+		<where>
+			<if test="vo.tableSchema != null and vo.tableSchema !=''">
+				and TABLE_SCHEMA = '${vo.tableSchema}'
+			</if>
+			<if test="vo.tableName != null and vo.tableName !=''">
+				and TABLE_NAME = '${vo.tableName}'
+			</if>
+		</where>
 	</select>
 	
 	<select id="listTableCols" parameterType="com.we.scrm.common.t2b.TableBean" resultType="com.we.scrm.common.t2b.TableBean">
